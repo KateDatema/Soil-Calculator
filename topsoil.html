@@ -1,0 +1,134 @@
+<!doctype html>
+<head>
+    <title>Soil calculator</title>
+</head>
+<body>
+    <h1>Soil Calculator</h1>
+    <h2>Rectangular Project</h2>
+
+        <label for="material">Select Material:</label>
+        <select id="material" name="material">
+            <option value="20.5">Topsoil</option>
+            <option value="21">RAP</option>
+            <option value="13.5">#1</option>
+            <option value="14">#2</option>
+            <option value="15">#3</option>
+            <option value="15.5"> #4</option>
+            <option value="17">#8</option>
+            <option value="17.5">#9</option>
+            <option value="18">#10</option>
+            <option value="14.6">#24</option>
+            <option value="16">#57</option>
+            <option value="16.5">#67</option>
+            <option value="18.5">#304</option>
+            <option value="19">#411</option>
+            <option value="20">#703.02</option>
+        </select>
+        <br>
+        <br>
+        <label for="depth">Depth (in inches)</label><br>
+        <input type="text" id="depth" name="depth" step=".5" min="0" placeholder="ie. 3"><br>
+        <br>
+        <label for="width">Width (in feet)</label><br>
+        <input type="text" id="width" name="width"step=".5" min="0" placeholder="ie. 3"><br>
+        <br>
+        <label for="length">Length (in feet)</label><br>
+        <input type="text" id="length" name="length"step=".5" min="0" placeholder="ie. 10"><br>
+        <br>
+        <button type="button" class="btn" onClick="calculateRec()"> Calculate Soil Amount </button>
+    <p id="recCubicFeet"></p>
+    <p id="recCubicYard"></p>
+    <p id="recTon"></p>
+    <p id="materialDensity"></p>
+
+    <h2>Circular Project</h2>
+
+        <label for="material2">Select Material:</label>
+        <select id="material2" name="material2">
+            <option value="20.5">Topsoil</option>
+            <option value="21">RAP</option>
+            <option value="13.5">#1</option>
+            <option value="14">#2</option>
+            <option value="15">#3</option>
+            <option value="15.5"> #4</option>
+            <option value="17">#8</option>
+            <option value="17.5">#9</option>
+            <option value="18">#10</option>
+            <option value="14.6">#24</option>
+            <option value="16">#57</option>
+            <option value="16.5">#67</option>
+            <option value="18.5">#304</option>
+            <option value="19">#411</option>
+            <option value="20">#703.02</option>
+        </select>
+        <br>
+        <br>
+        <label for="depthC">Depth (in inches)</label><br>
+        <input type="text" id="depthC" name="depthC" step=".5" min="0" placeholder="ie. 3"><br>
+        <br>
+        <label for="diameter">Diameter (in feet)</label><br>
+        <input type="text" id="diameter" name="diameter"step=".5" min="0" placeholder="ie. 3"><br>
+        <br>
+        <button type="button" class="btn" onClick="calculateCir()"> Calculate Soil Amount </button>
+    <p id="cirCubicFeet"></p>
+    <p id="cirCubicYard"></p>
+    <p id="cirTon"></p>
+    <p id="materialDensityC"></p>
+
+    <script>
+        function calculateRec() {
+            var depth=Number(document.getElementById("depth").value)
+            var width=Number(document.getElementById("width").value)
+            var length=Number(document.getElementById("length").value)
+
+            var totalFeet= ((depth/12)*width*length);
+                totalFeet=totalFeet.toFixed(2);
+            var htmlRecCubicFeet= "Cubic Feet: " + totalFeet;
+                document.getElementById("recCubicFeet").innerHTML =htmlRecCubicFeet
+
+            var totalYards=(totalFeet/27).toFixed(2);
+            var htmlRecCubicYard= "Cubic Yards: " +totalYards;
+                document.getElementById("recCubicYard").innerHTML =htmlRecCubicYard
+
+            var density=document.getElementById("material").value;
+                
+            var tons=(totalFeet/density).toFixed(2);
+            var htmlTons="Tons: " + tons;
+                document.getElementById("recTon").innerHTML=htmlTons
+
+            var htmlMaterialDensity = "Material Density: " + density
+                document.getElementById("materialDensity").innerHTML=htmlMaterialDensity
+
+
+            return [totalFeet, totalYards, tons]
+        }
+        function calculateCir() {
+            var depthC=Number(document.getElementById("depthC").value)
+            var diameter=Number(document.getElementById("diameter").value)
+
+            var cirFeet= (Math.PI)*(depthC/12)*(diameter/2)**2;
+                console.log(cirFeet)
+                cirFeet=cirFeet.toFixed(2);
+            var htmlCirCubicFeet= "Cubic Feet: " + cirFeet;
+                document.getElementById("cirCubicFeet").innerHTML =htmlCirCubicFeet
+
+            var cirYards=(cirFeet/27).toFixed(2);
+            var htmlCirCubicYard= "Cubic Yards: " +cirYards;
+                document.getElementById("cirCubicYard").innerHTML =htmlCirCubicYard
+
+            var density=document.getElementById("material2").value;
+                
+            var cirTons=(cirFeet/density).toFixed(2);
+            var htmlCirTons="Tons: " + cirTons;
+                document.getElementById("cirTon").innerHTML=htmlCirTons
+
+            var htmlMaterialDensity = "Material Density: " + density
+                document.getElementById("materialDensityC").innerHTML=htmlMaterialDensity
+
+
+            return [cirFeet, cirYards, cirTons, density]
+        }
+
+    </script>
+        
+</body>
